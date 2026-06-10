@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora de Integrales Directas</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f4f4;
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    .container {
+        background: white;
+        width: 400px;
+        margin: auto;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    input, button {
+        width: 90%;
+        padding: 10px;
+        margin: 10px 0;
+    }
+
+    #resultado {
+        font-size: 18px;
+        font-weight: bold;
+        color: green;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Calculadora de Integrales Directas</h2>
+
+    <p>Ingresa un término como: 3x^2, 5x^4, -2x^3</p>
+
+    <input type="text" id="funcion" placeholder="Ejemplo: 3x^2">
+    <button onclick="integrar()">Integrar</button>
+
+    <p id="resultado"></p>
+</div>
+
+<script>
+function integrar() {
+    const expresion = document.getElementById("funcion").value.trim();
+
+    const regex = /^(-?\d*)x\^(\d+)$/;
+    const match = expresion.match(regex);
+
+    if (!match) {
+        document.getElementById("resultado").innerText =
+            "Formato no válido. Ejemplo: 3x^2";
+        return;
+    }
+
+    let coef = match[1];
+    let exponente = parseInt(match[2]);
+
+    if (coef === "" || coef === "+") coef = 1;
+    else if (coef === "-") coef = -1;
+    else coef = parseFloat(coef);
+
+    const nuevoExp = exponente + 1;
+    const nuevoCoef = coef / nuevoExp;
+
+    document.getElementById("resultado").innerText =
+        `∫ ${expresion} dx = ${nuevoCoef}x^${nuevoExp} + C`;
+}
+</script>
+
+</body>
+</html>
